@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jianne Abinales | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #87CEEB;
+            --secondary: #00CED1;
+            --accent: #D4AF37;
+            --bg: #E0F7FA;
+            --bg-secondary: #FFFFFF;
+            --text: #1a1a2e;
+            --text-secondary: #4a5568;
+            --card-shadow: rgba(0, 0, 0, 0.15);
+            --nav-bg: rgba(224, 247, 250, 0.95);
+            --border: rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8B0000;
+            --secondary: #4A0E4E;
+            --accent: #D4AF37;
+            --bg: #0D0D0D;
+            --bg-secondary: #1A1A1A;
+            --text: #F5F5DC;
+            --text-secondary: #B8A082;
+            --card-shadow: rgba(0, 0, 0, 0.5);
+            --nav-bg: rgba(26, 26, 26, 0.95);
+            --border: rgba(212, 175, 55, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: url('assets/images/wallpaper light mode.png') no-repeat center center fixed;
+            background-size: cover;
+            background-position: center 20px;
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        [data-theme="dark"] body {
+            background: url('assets/images/wallpaper night mode.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        ::selection {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            padding: 10px 14px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--card-shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+        }
+
+        .theme-toggle i {
+            font-size: 18px;
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            color: var(--bg);
+        }
+
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .fa-moon {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            display: block;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 80px;
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px var(--card-shadow);
+            z-index: 1000;
+            border: 1px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: scale(1.1);
+        }
+
+        .music-player:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px var(--card-shadow);
+        }
+
+        .music-player i {
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .next-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .next-btn i {
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        .music-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
+        }
+
+        .song-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .song-artist {
+            font-size: 9px;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            padding: 1rem 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            box-shadow: 0 2px 20px var(--card-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            flex: 1;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--bg);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--primary);
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline.github,
+        .btn-outline.linkedin,
+        .btn-outline.cv-btn {
+            border-color: currentColor;
+            color: inherit;
+        }
+
+        .btn-outline.github {
+            color: #333;
+        }
+        
+        .btn-outline.linkedin {
+            color: #0077b5;
+        }
+
+        .btn-outline.cv-btn {
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .hero-image {
+            flex: 0.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .profile-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 320px;
+            height: 380px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .profile-icon {
+            font-size: 120px;
+            color: var(--bg);
+            opacity: 0.9;
+        }
+
+        .profile-label {
+            color: var(--bg);
+            font-weight: 600;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Section Styles */
+        .section {
+            margin: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .title-accent {
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 1.8rem;
+            box-shadow: 0 5px 20px var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px var(--card-shadow);
+            border-color: var(--primary);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .project-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .project-tech {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tech-tag {
+            background: var(--primary);
+            color: var(--bg);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .project-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px var(--card-shadow);
+            border: 1px solid var(--border);
+        }
+
+        .skill-category h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-category h3 i {
+            color: var(--primary);
+        }
+
+        .skill-item {
+            margin-bottom: 1.2rem;
+        }
+
+        .skill-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .skill-level {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+
+        /* Experience Card */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        .exp-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            box-shadow: 0 5px 20px var(--card-shadow);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .exp-card::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 2rem;
+            width: 14px;
+            height: 14px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+        }
+
+        .exp-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 10px 30px var(--card-shadow);
+        }
+
+        .exp-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+        }
+
+        .exp-company {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .exp-meta {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .exp-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Education Card */
+        .edu-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 2.5rem;
+            color: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .edu-card::after {
+            content: '\f19d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 150px;
+            position: absolute;
+            right: -20px;
+            bottom: -40px;
+            opacity: 0.15;
+        }
+
+        .edu-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-card .degree {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .edu-card p {
+            opacity: 0.85;
+            font-size: 0.9rem;
+        }
+
+        .edu-card a {
+            color: var(--bg);
+            opacity: 0.9;
+        }
+
+        /* Awards */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Thoughts Grid */
+        .thoughts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .content-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px var(--card-shadow);
+            border: 1px solid var(--border);
+        }
+
+        .content-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-card li {
+            padding: 0.4rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Dreams Buttons */
+        .dreams-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .dream-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 36px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 20px var(--card-shadow);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dream-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.35);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 700px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            color: var(--bg);
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .modal-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .modal-content ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 900px) {
+            .thoughts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .award-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .award-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--card-shadow);
+        }
+
+        .award-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .award-card h3 {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .award-card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Tags Grid */
+        .tags-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .tag {
+            background: var(--bg-secondary);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 3px 10px var(--card-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px var(--card-shadow);
+            border-color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 5rem 0;
+            color: var(--bg);
+        }
+
+        .contact-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--bg);
+        }
+
+        .contact-section > p {
+            color: var(--bg);
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--bg);
+        }
+
+        .contact-info i {
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 50px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .social-link.github {
+            color: #333;
+        }
+
+        .social-link.linkedin {
+            color: #0077b5;
+        }
+
+        .social-link.cv-link {
+            color: var(--primary);
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 2.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Mobile Menu */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 100px;
+            }
+
+            .hero-content p {
+                max-width: 100%;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image {
+                flex: none;
+            }
+
+            .profile-card {
+                width: 250px;
+                height: 300px;
+            }
+
+            .profile-icon {
+                font-size: 80px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px var(--card-shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .theme-toggle {
+                top: 70px;
+                right: 10px;
+            }
+
+            .music-player {
+                right: 60px;
+                bottom: 10px;
+                padding: 6px 10px;
+            }
+
+            .music-info {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer" onclick="toggleMusic()">
+        <i class="fas fa-music" id="musicIcon"></i>
+        <div class="music-info">
+            <span class="song-title" id="songTitle">Vocaloi Bossa Nova Medley</span>
+            <span class="song-artist" id="songArtist">Track 1 of 2</span>
+        </div>
+        <button class="next-btn" onclick="nextTrack(event)">
+            <i class="fas fa-forward"></i>
+        </button>
+    </div>
+
+    <audio id="bgMusic" loop>
+    </audio>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="https://github.com/jianne-cs" target="_blank" class="logo">jianne-cs</a>
+        <button class="mobile-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <span class="hero-badge">Available for Opportunities</span>
+                <h1>Hi, I'm <span class="gradient-text">Jianne Leryz Abinales</span></h1>
+                <p class="hero-tagline">Creative & Analytical Developer | Full-Stack & Mobile Specialist</p>
+                <p>A 2nd-year Computer Science student passionate about building elegant software solutions. Creative, investigative, and a natural leader with a visual learning approach. Interested in Software Engineering, Data Analysis, and Cybersecurity.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn">View Projects <i class="fas fa-arrow-right"></i></a>
+                    <a href="assets/file/cvabinalesjianne.pdf" target="_blank" class="btn btn-outline cv-btn" download><i class="fas fa-file-pdf"></i> Download CV</a>
+                    <a href="https://github.com/jianne-cs" target="_blank" class="btn btn-outline github"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/jianne-abinales" target="_blank" class="btn btn-outline linkedin"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                </div>
+            </div>
+            <div class="hero-image" style="perspective: 1000px;">
+                <img src="assets/images/me.png" alt="Jianne Abinales" onclick="this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'" style="width: 320px; height: 380px; object-fit: cover; border-radius: 30px; box-shadow: 0 10px 40px var(--card-shadow); transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;">
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">A collection of my best work and personal projects</p>
+                <span class="title-accent"></span>
+            </div>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-video" style="position: relative; margin-bottom: 1rem; border-radius: 12px; overflow: hidden;">
+                        <video src="assets/videos/ave mujica vid.mp4" muted loop preload="metadata" style="width: 100%; height: 180px; object-fit: cover;"></video>
+                        <button class="video-play-btn" onclick="toggleVideo(this)" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: white; font-size: 1.2rem;"><i class="fas fa-play"></i></button>
+                        <button class="video-fullscreen-btn" onclick="fullscreenVideo(this)" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; color: white; font-size: 0.9rem;"><i class="fas fa-expand"></i></button>
+                    </div>
+                    <div class="project-header">
+                        <div class="project-icon">📚</div>
+                        <h3>Ave Mujica Logic Grimoire</h3>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Tkinter</span>
+                        <span class="tech-tag">OOP</span>
+                    </div>
+                    <p>Interactive desktop app teaching 16 logical operations through character-driven quests with truth table puzzles.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/jianne-cs/ave-mujica-logic-grimoire" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-video" style="position: relative; margin-bottom: 1rem; border-radius: 12px; overflow: hidden;">
+                        <video src="assets/videos/stride video.mp4" muted loop preload="metadata" style="width: 100%; height: 180px; object-fit: cover;"></video>
+                        <button class="video-play-btn" onclick="toggleVideo(this)" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: white; font-size: 1.2rem;"><i class="fas fa-play"></i></button>
+                        <button class="video-fullscreen-btn" onclick="fullscreenVideo(this)" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; color: white; font-size: 0.9rem;"><i class="fas fa-expand"></i></button>
+                    </div>
+                    <div class="project-header">
+                        <div class="project-icon">🧠</div>
+                        <h3>STRIDE | Mental Health Game</h3>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <p>Gamified web app helping users battle stress/anxiety through customizable monster avatars and turn-based combat.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/jianne-cs/DraftOfStressMonsters" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-video" style="position: relative; margin-bottom: 1rem; border-radius: 12px; overflow: hidden;">
+                        <video src="assets/videos/asti-dost video.mp4" muted loop preload="metadata" style="width: 100%; height: 180px; object-fit: cover;"></video>
+                        <button class="video-play-btn" onclick="toggleVideo(this)" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: white; font-size: 1.2rem;"><i class="fas fa-play"></i></button>
+                        <button class="video-fullscreen-btn" onclick="fullscreenVideo(this)" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; color: white; font-size: 0.9rem;"><i class="fas fa-expand"></i></button>
+                    </div>
+                    <div class="project-header">
+                        <div class="project-icon">🏛️</div>
+                        <h3>DOST-ASTI Redesign</h3>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS Grid</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <p>Complete frontend redesign of DOST-ASTI official website with neo-futurism aesthetic and responsive layout.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/jianne-cs/hci-improved-asti" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-video" style="position: relative; margin-bottom: 1rem; border-radius: 12px; overflow: hidden;">
+                        <video src="assets/videos/otaku oasis toy store video.mp4" muted loop preload="metadata" style="width: 100%; height: 180px; object-fit: cover;"></video>
+                        <button class="video-play-btn" onclick="toggleVideo(this)" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: white; font-size: 1.2rem;"><i class="fas fa-play"></i></button>
+                        <button class="video-fullscreen-btn" onclick="fullscreenVideo(this)" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; color: white; font-size: 0.9rem;"><i class="fas fa-expand"></i></button>
+                    </div>
+                    <div class="project-header">
+                        <div class="project-icon">🛍️</div>
+                        <h3>Otaku Oasis</h3>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <p>Full-stack e-commerce store for anime merchandise with shopping cart, user auth, and admin panel.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/jianne-cs/toystore" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-video" style="position: relative; margin-bottom: 1rem; border-radius: 12px; overflow: hidden;">
+                        <video src="assets/videos/vocaloid expo vid.mp4" muted loop preload="metadata" style="width: 100%; height: 180px; object-fit: cover;"></video>
+                        <button class="video-play-btn" onclick="toggleVideo(this)" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: white; font-size: 1.2rem;"><i class="fas fa-play"></i></button>
+                        <button class="video-fullscreen-btn" onclick="fullscreenVideo(this)" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; color: white; font-size: 0.9rem;"><i class="fas fa-expand"></i></button>
+                    </div>
+                    <div class="project-header">
+                        <div class="project-icon">🎵</div>
+                        <h3>Miku Expo Store</h3>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">Laravel 12</span>
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">Bootstrap 5</span>
+                    </div>
+                    <p>Laravel-based e-commerce app for Hatsune Miku merchandise with full admin dashboard.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/jianne-cs/WebDevFInalsMikuExpoOnlineStore" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-video" style="position: relative; margin-bottom: 1rem; border-radius: 12px; overflow: hidden;">
+                        <video src="assets/videos/financial quiz video.mp4" muted loop preload="metadata" style="width: 100%; height: 180px; object-fit: cover;"></video>
+                        <button class="video-play-btn" onclick="toggleVideo(this)" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: white; font-size: 1.2rem;"><i class="fas fa-play"></i></button>
+                        <button class="video-fullscreen-btn" onclick="fullscreenVideo(this)" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; color: white; font-size: 0.9rem;"><i class="fas fa-expand"></i></button>
+                    </div>
+                    <div class="project-header">
+                        <div class="project-icon">💰</div>
+                        <h3>Financial Literacy Quiz</h3>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">Java Swing</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">JDBC</span>
+                    </div>
+                    <p>Desktop quiz app with difficulty levels, user management, and admin question controls.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/jianne-cs/financialquiz" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Technical Skills</h2>
+                <p class="section-subtitle">Technologies and tools I work with</p>
+                <span class="title-accent"></span>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Frontend & Backend</h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">HTML5 / CSS3</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="95"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">PHP / Laravel</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-database"></i> Tools & Platforms</h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Java</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">C#</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="60"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">SQL / MySQL</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Android Studio</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="60"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Git / GitHub</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">My professional journey</p>
+                <span class="title-accent"></span>
+            </div>
+            <div class="timeline">
+                <div class="exp-card">
+                    <h3>Peer Collaborator & Group Leader</h3>
+                    <div class="exp-company">CIIT College of Arts and Technology</div>
+                    <div class="exp-meta">2024 – Present</div>
+                    <p>Lead group projects by organizing tasks, delegating work, facilitating collaboration, and ensuring deadlines are met. Balance leadership with independent work, earning trust for reliability.</p>
+                </div>
+                <div class="exp-card">
+                    <h3>Self-Directed Learner</h3>
+                    <div class="exp-company">Personal Projects</div>
+                    <div class="exp-meta">2024 – Present</div>
+                    <p>Independently learn new technologies (Laravel, Android Studio) and manage 7+ projects using Git for version control.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Education</h2>
+                <span class="title-accent"></span>
+            </div>
+            <div class="edu-card">
+                <h3>Bachelor of Science in Computer Science</h3>
+                <div class="degree">CIIT College of Arts and Technology</div>
+                <p>2nd Year Student | 2024 – Present (Expected 2026)</p>
+                <p style="margin-top: 1rem;">94 Kamuning Rd, Diliman, Quezon City, 1103 Metro Manila<br>
+                <a href="https://www.ciit.edu.ph" target="_blank">www.ciit.edu.ph</a></p>
+            </div>
+        </section>
+
+        <!-- Thoughts & Dreams Dropdown -->
+        <section class="section">
+            <div class="dropdown-header" onclick="toggleDropdown('thoughts-dropdown')" style="cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 1rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50px; color: var(--bg); font-weight: 600; font-size: 1.2rem; margin: 0 auto; max-width: 300px;">
+                <span>Thoughts & Dreams ♡</span>
+                <i class="fas fa-chevron-down" id="dropdown-icon"></i>
+            </div>
+            <div id="thoughts-dropdown" class="dropdown-content" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease;">
+                <div style="padding-top: 2rem;">
+                    <div class="thoughts-grid">
+                        <div class="content-card">
+                            <h3>──★ Industry Trends</h3>
+                            <p>Today, technology and computer science are changing very fast. Some jobs that are expected to grow a lot in the next five years include:</p>
+                            <ul class="trend-list">
+                                <li><strong>Cybersecurity:</strong> Protecting computers and data from threats.</li>
+                                <li><strong>Data Science:</strong> Analyzing data to find useful information.</li>
+                                <li><strong>Artificial Intelligence:</strong> Creating smart machines and programs.</li>
+                                <li><strong>Cloud Computing:</strong> Using online services to run programs and store data.</li>
+                                <li><strong>Software Development:</strong> Building apps and software, including web and mobile.</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h3>──★ Taking Care of Coding Skills</h3>
+                            <p>Whenever I have free time, I work on improving my coding skills by:</p>
+                            <ul class="trend-list">
+                                <li>Practicing regularly through everyday coding exercises.</li>
+                                <li>Joining coding challenges, like the 100 Days of Code, to stay motivated.</li>
+                                <li>Using online sites like FreeCodeCamp for tutorials.</li>
+                                <li>Watching YouTube channels like Bro Code for lessons and tips.</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h3>──★ What Inspires Me in Coding</h3>
+                            <p>Many people motivate me to continue in coding, especially women inventors in tech:</p>
+                            <ul class="trend-list">
+                                <li><strong>Full Stack Programmer:</strong> Can do many types of coding.</li>
+                                <li><strong>Web Programmer:</strong> Has creative opportunities.</li>
+                                <li><strong>Software Engineer:</strong> In high demand and pays well.</li>
+                                <li><strong>Cybersecurity Specialist:</strong> Important for protecting data.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- My Dreams Buttons -->
+                    <div class="dreams-buttons" style="margin-top: 2rem;">
+                        <button class="dream-btn" onclick="openModal('cybersecurity')">
+                            <i class="fas fa-shield-alt"></i> Cybersecurity
+                        </button>
+                        <button class="dream-btn" onclick="openModal('software')">
+                            <i class="fas fa-code"></i> Software Engineer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards -->
+        <section id="awards" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Awards & Recognition</h2>
+                <span class="title-accent"></span>
+            </div>
+            <div class="awards-grid">
+                <div class="award-card">
+                    <div class="award-icon">🏆</div>
+                    <h3>Special Recognition Award</h3>
+                    <p>CESCON 2025</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Languages & Interests -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Languages</h2>
+                <span class="title-accent"></span>
+            </div>
+            <div class="tags-grid">
+                <span class="tag">🇵🇭 Filipino (Native)</span>
+                <span class="tag">🇺🇸 English (Fluent)</span>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Interests</h2>
+                <span class="title-accent"></span>
+            </div>
+            <div class="tags-grid">
+                <span class="tag">🎮 Gaming</span>
+                <span class="tag">📚 Reading</span>
+                <span class="tag">🎨 Digital Art</span>
+                <span class="tag">🎵 Music</span>
+                <span class="tag">📺 Anime</span>
+                <span class="tag">✈️ Traveling</span>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <h2>Let's Connect</h2>
+            <p>Interested in working together? Feel free to reach out!</p>
+            <div class="contact-info">
+                <p><i class="fas fa-envelope"></i> jianne.abinales@email.com</p>
+                <p><i class="fas fa-phone"></i> +63 9947973947</p>
+                <p><i class="fas fa-map-marker-alt"></i> Quezon City, Metro Manila</p>
+            </div>
+            <div class="social-links">
+                <a href="assets/file/cvabinalesjianne.pdf" target="_blank" class="social-link cv-link" download>
+                    <i class="fas fa-file-pdf"></i> Download CV
+                </a>
+                <a href="https://github.com/jianne-cs" target="_blank" class="social-link github">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://linkedin.com/in/jianne-abinales" target="_blank" class="social-link linkedin">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="cybersecurityModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('cybersecurity')"><i class="fas fa-times"></i></button>
+            <h2>Why I Want to Become a Cybersecurity Professional</h2>
+            <p>Since I was little, I've been interested in technology and how it helps shape our world. As I got older, I realized how important it is to keep our online lives safe. Here's why I want to work in cybersecurity:</p>
+            <p>A job in cybersecurity can provide steady income and financial security, helping me reach my personal and financial goals. I really enjoy fighting against bad software and protecting important information, which helps people and organizations feel safe. Since this field is always changing, I get to face new challenges every day, using my problem-solving skills to figure out complex issues.</p>
+            <p>I want to become a well-known cybersecurity analyst because there's a growing need for experts in this field worldwide. Also, this work often allows for remote options, giving me the chance to travel while doing what I love and helping create a safer digital world.</p>
+            <p>My dream of becoming a cybersecurity expert is driven by my love for technology, my wish to help others stay safe, and the chance to keep learning and growing in an exciting, ever-changing field. I'm dedicated to making this dream come true.</p>
+        </div>
+    </div>
+
+    <div class="modal" id="softwareModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('software')"><i class="fas fa-times"></i></button>
+            <h2>Why I Want to Become a Software Engineer Professional</h2>
+            <p>I want to become a software engineer because it offers stability and opportunities for growth. It allows me to solve problems and help create new apps that make life better for users. I enjoy learning new things and working in a fast-changing environment where I can make a positive difference through technology. As more companies need skilled software engineers, there are many different career paths, including options to work from home and to team up with people from around the world. I'm excited to explore opportunities in places with vibrant tech scenes, where I can follow my passion and help improve the industry.</p>
+            <p>Choosing a career in software engineering has many benefits:</p>
+            <ul>
+                <li>Good pay and job security</li>
+                <li>Work on interesting challenges with real impact</li>
+                <li>Ongoing learning opportunities</li>
+                <li>Flexibility to work remotely</li>
+                <li>Team collaboration build cooperation skills</li>
+            </ul>
+            <p>Overall, a career in software engineering offers financial stability, professional growth, and personal satisfaction from making a difference in society.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Jianne Leryz Abinales | <a href="https://github.com/jianne-cs" target="_blank">GitHub</a> | <a href="https://linkedin.com/in/jianne-abinales" target="_blank">LinkedIn</a> | Quezon City, Metro Manila</p>
+    </footer>
+
+    <script>
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById('dropdown-icon');
+            if (dropdown.style.maxHeight === '0px' || dropdown.style.maxHeight === '') {
+                dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                dropdown.style.maxHeight = '0';
+                icon.style.transform = 'rotate(0)';
+            }
+        }
+
+        function openModal(type) {
+            document.getElementById(type + 'Modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(type) {
+            document.getElementById(type + 'Modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        function toggleVideo(btn) {
+            const video = btn.parentElement.querySelector('video');
+            if (video.paused) {
+                video.play();
+                btn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                video.pause();
+                btn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        }
+
+        function fullscreenVideo(btn) {
+            const video = btn.parentElement.querySelector('video');
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
+
+        const audio = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const songTitle = document.getElementById('songTitle');
+        const songArtist = document.getElementById('songArtist');
+        let isPlaying = false;
+        let currentTrack = 0;
+
+        const tracks = [
+            {
+                src: 'assets/music/LEASE.mp3',
+                title: 'LEASE',
+                artist: 'Light Mode'
+            }
+        ];
+
+        function loadTrack(index) {
+            audio.src = tracks[index].src;
+            songTitle.textContent = tracks[index].title;
+            songArtist.textContent = tracks[index].artist;
+        }
+
+        function setThemeMusic() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                tracks[0].src = 'assets/music/Octagram Dance.mp3';
+                tracks[0].title = 'Octagram Dance';
+                tracks[0].artist = 'Dark Mode';
+            } else {
+                tracks[0].src = 'assets/music/LEASE.mp3';
+                tracks[0].title = 'LEASE';
+                tracks[0].artist = 'Light Mode';
+            }
+            audio.src = tracks[0].src;
+            songTitle.textContent = tracks[0].title;
+            songArtist.textContent = tracks[0].artist;
+            audio.play().then(() => {
+                isPlaying = true;
+                musicIcon.className = 'fas fa-pause';
+            }).catch(e => console.log('Autoplay blocked:', e));
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicIcon.className = 'fas fa-music';
+            } else {
+                audio.play().catch(e => console.log('Audio play failed:', e));
+                musicIcon.className = 'fas fa-pause';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function nextTrack(e) {
+            e.stopPropagation();
+            currentTrack = (currentTrack + 1) % tracks.length;
+            loadTrack(currentTrack);
+            if (isPlaying) {
+                audio.play();
+            }
+        }
+
+        audio.addEventListener('ended', () => {
+            currentTrack = (currentTrack + 1) % tracks.length;
+            loadTrack(currentTrack);
+            if (isPlaying) {
+                audio.play();
+            }
+        });
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        loadTrack(currentTrack);
+
+        let hasInteracted = false;
+
+        function startMusic() {
+            if (!hasInteracted) {
+                hasInteracted = true;
+                audio.volume = 0.3;
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicIcon.className = 'fas fa-pause';
+                }).catch(e => console.log('Audio play failed:', e));
+                document.removeEventListener('click', startMusic);
+            }
+        }
+
+        document.addEventListener('click', startMusic, { once: true });
+
+        window.addEventListener('load', () => {
+            setThemeMusic();
+            audio.volume = 0.3;
+            audio.play().then(() => {
+                isPlaying = true;
+                musicIcon.className = 'fas fa-pause';
+            }).catch(e => console.log('Autoplay blocked:', e));
+        });
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            setThemeMusic();
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progress = entry.target.querySelector('.skill-progress');
+                    if (progress) {
+                        const width = progress.getAttribute('data-width');
+                        progress.style.width = width + '%';
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.skill-category').forEach(category => {
+            skillObserver.observe(category);
+        });
+    </script>
+</body>
+</html>

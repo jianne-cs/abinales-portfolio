@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thoughts ♡ | Jianne Abinales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #87CEEB;
+            --secondary: #00CED1;
+            --accent: #D4AF37;
+            --bg: #E0F7FA;
+            --bg-secondary: #FFFFFF;
+            --text: #1a1a2e;
+            --text-secondary: #4a5568;
+            --card-shadow: rgba(0, 0, 0, 0.15);
+            --nav-bg: rgba(224, 247, 250, 0.95);
+            --border: rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8B0000;
+            --secondary: #4A0E4E;
+            --accent: #D4AF37;
+            --bg: #0D0D0D;
+            --bg-secondary: #1A1A1A;
+            --text: #F5F5DC;
+            --text-secondary: #B8A082;
+            --card-shadow: rgba(0, 0, 0, 0.5);
+            --nav-bg: rgba(26, 26, 26, 0.95);
+            --border: rgba(212, 175, 55, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: url('assets/images/wallpaper light mode.png') no-repeat center center fixed;
+            background-size: cover;
+            background-position: center 20px;
+            color: var(--text);
+            line-height: 1.7;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        [data-theme="dark"] body {
+            background: url('assets/images/wallpaper night mode.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        ::selection {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            padding: 10px 14px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--card-shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+        }
+
+        .theme-toggle i {
+            font-size: 18px;
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            color: var(--bg);
+        }
+
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .fa-moon {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            display: block;
+        }
+
+        nav {
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            padding: 1rem 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            box-shadow: 0 2px 20px var(--card-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        .section {
+            margin: 4rem 0;
+        }
+
+        .thoughts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .thoughts-grid .content-card {
+            height: 100%;
+        }
+
+        .dreams-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .dream-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 36px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 20px var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .dream-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.35);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .title-accent {
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            margin: 1rem 0 2rem;
+            border-radius: 2px;
+        }
+
+        .content-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px var(--card-shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-card h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-card h2 i {
+            color: var(--primary);
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .content-card li::before {
+            content: '★';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 998;
+        }
+
+        .float-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 5px 20px var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .float-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.35);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 700px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            color: var(--bg);
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .modal-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .modal-content ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .thoughts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dreams-buttons {
+                flex-direction: column;
+            }
+            
+            .dream-btn {
+                justify-content: center;
+            }
+            
+            .floating-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <nav>
+        <a href="index.html" class="logo">jianne-cs</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#thoughts">Thoughts</a></li>
+            <li><a href="#dreams">Dreams</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section class="hero">
+            <h1>Thoughts ♡</h1>
+            <p>These are some of my quick ideas about the tech world, best ways to learn coding on your own, and what inspires me. Scroll down to see my dreams related to this page ♡</p>
+        </section>
+
+        <section id="thoughts" class="section">
+            <h2 class="section-title">My Thoughts ♡</h2>
+            <span class="title-accent"></span>
+            <div class="thoughts-grid">
+                <div class="content-card">
+                    <h3>──★ Industry Trends</h3>
+                    <p>Today, technology and computer science are changing very fast. Some jobs that are expected to grow a lot in the next five years include:</p>
+                    <ul>
+                        <li><strong>Cybersecurity:</strong> Protecting computers and data from threats.</li>
+                        <li><strong>Data Science:</strong> Analyzing data to find useful information.</li>
+                        <li><strong>Artificial Intelligence:</strong> Creating smart machines and programs.</li>
+                        <li><strong>Cloud Computing:</strong> Using online services to run programs and store data.</li>
+                        <li><strong>Software Development:</strong> Building apps and software, including web and mobile.</li>
+                    </ul>
+                    <p>As technology keeps moving forward, it's important for those interested in tech to stay updated on these trends.</p>
+                </div>
+                <div class="content-card">
+                    <h3>──★ Taking Care of Coding Skills</h3>
+                    <p>Whenever I have free time, I work on improving my coding skills by:</p>
+                    <ul>
+                        <li>Practicing regularly through everyday coding exercises.</li>
+                        <li>Joining coding challenges, like the 100 Days of Code, to stay motivated.</li>
+                        <li>Using online sites like FreeCodeCamp for tutorials.</li>
+                        <li>Watching YouTube channels like Bro Code for lessons and tips.</li>
+                    </ul>
+                    <p>Doing these things regularly helps me get better at coding and keeps me aware of the latest technologies.</p>
+                </div>
+                <div class="content-card">
+                    <h3>──★ What Inspires Me in Coding</h3>
+                    <p>Many people motivate me to continue in coding, especially women inventors in tech. Here are some thoughts on different types of programming jobs and what I see as their good and challenging aspects:</p>
+                    <ul>
+                        <li><strong>Full Stack Programmer:</strong> Can do many types of coding, but it can be a lot to handle at once.</li>
+                        <li><strong>Web Programmer and Designer:</strong> Has creative opportunities but requires ongoing learning.</li>
+                        <li><strong>Software Engineer:</strong> In high demand and pays well, but sometimes involves working long hours.</li>
+                        <li><strong>Cybersecurity Specialist:</strong> Important for protecting data, though it can be stressful.</li>
+                    </ul>
+                    <p>I also plan to get certifications in these areas to improve my skills and career chances.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dreams" class="section">
+            <h2 class="section-title">My Dreams ♡</h2>
+            <span class="title-accent"></span>
+            <div class="dreams-buttons">
+                <a href="#" class="dream-btn" onclick="openModal('cybersecurity'); return false;">
+                    <i class="fas fa-shield-alt"></i>
+                    Cybersecurity
+                </a>
+                <a href="#" class="dream-btn" onclick="openModal('software'); return false;">
+                    <i class="fas fa-code"></i>
+                    Software Engineer
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div class="floating-btn">
+        <a href="#" class="float-btn" onclick="openModal('cybersecurity'); return false;">
+            <i class="fas fa-shield-alt"></i>
+            <span>Cybersecurity</span>
+        </a>
+        <a href="#" class="float-btn" onclick="openModal('software'); return false;">
+            <i class="fas fa-code"></i>
+            <span>Software Engineer</span>
+        </a>
+    </div>
+
+    <div class="modal" id="cybersecurityModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('cybersecurity')"><i class="fas fa-times"></i></button>
+            <h2>Why I Want to Become a Cybersecurity Professional</h2>
+            <p>Since I was little, I've been interested in technology and how it helps shape our world. As I got older, I realized how important it is to keep our online lives safe. Here's why I want to work in cybersecurity:</p>
+            <p>A job in cybersecurity can provide steady income and financial security, helping me reach my personal and financial goals. I really enjoy fighting against bad software and protecting important information, which helps people and organizations feel safe. Since this field is always changing, I get to face new challenges every day, using my problem-solving skills to figure out complex issues.</p>
+            <p>I want to become a well-known cybersecurity analyst because there's a growing need for experts in this field worldwide. Also, this work often allows for remote options, giving me the chance to travel while doing what I love and helping create a safer digital world.</p>
+            <p>My dream of becoming a cybersecurity expert is driven by my love for technology, my wish to help others stay safe, and the chance to keep learning and growing in an exciting, ever-changing field. I'm dedicated to making this dream come true.</p>
+        </div>
+    </div>
+
+    <div class="modal" id="softwareModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('software')"><i class="fas fa-times"></i></button>
+            <h2>Why I Want to Become a Software Engineer Professional</h2>
+            <p>I want to become a software engineer because it offers stability and opportunities for growth. It allows me to solve problems and help create new apps that make life better for users. I enjoy learning new things and working in a fast-changing environment where I can make a positive difference through technology. As more companies need skilled software engineers, there are many different career paths, including options to work from home and to team up with people from around the world. I'm excited to explore opportunities in places with vibrant tech scenes, where I can follow my passion and help improve the industry.</p>
+            <p>Choosing a career in software engineering has many benefits:</p>
+            <ul>
+                <li>Good pay and job security</li>
+                <li>Work on interesting challenges with real impact</li>
+                <li>Ongoing learning opportunities</li>
+                <li>Flexibility to work remotely</li>
+                <li>Team collaboration build cooperation skills</li>
+            </ul>
+            <p>Overall, a career in software engineering offers financial stability, professional growth, and personal satisfaction from making a difference in society.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Jianne Leryz Abinales | <a href="index.html">Home</a> | <a href="https://github.com/jianne-cs">GitHub</a> | <a href="https://linkedin.com/in/jianne-abinales">LinkedIn</a></p>
+    </footer>
+
+    <script>
+        function openModal(type) {
+            document.getElementById(type + 'Modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(type) {
+            document.getElementById(type + 'Modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+</body>
+</html>
